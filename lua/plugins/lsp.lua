@@ -36,41 +36,15 @@ return {
                 function(server_name) -- default handler (optional)
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities,
-                        on_attach = function(bufnr)
+                        on_attach = function(client, bufnr) -- Corrected: Added `client`
                             local opts = { noremap = true, silent = true, buffer = bufnr }
                             -- Keybindings for LSP
                             vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts) -- Go to Definition
-                        end
-
-                    }
-                end,
-
-                ["lua_ls"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.lua_ls.setup {
-                        capabilities = capabilities,
-                        settings = {
-                            Lua = {
-                                diagnostics = {
-                                    globals = { "vim", "it", "describe", "before_each", "after_each" },
-                                }
-                            }
-                        }
-                    }
-                end,
-                ["jdtls"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.jdtls.setup({
-                        capabilities = capabilities, -- Use your existing capabilities
-                        on_attach = function(client)
-                            -- Disable formatting capabilities for jdtls
-                            client.server_capabilities.documentFormattingProvider = false
-
-                            -- Optional: Set keymaps or other on_attach logic
                         end,
-                    })
-                end
+                    }
+                end,
             }
+
         })
 
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
