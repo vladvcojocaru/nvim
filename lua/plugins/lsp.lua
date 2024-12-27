@@ -28,9 +28,6 @@ return {
             ensure_installed = {
                 "lua_ls",
                 "rust_analyzer",
-                "pyright",
-                "jdtls",
-                "clangd"
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -44,7 +41,6 @@ return {
                     }
                 end,
             }
-
         })
 
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
